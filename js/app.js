@@ -9,9 +9,13 @@ loadEventListeners();
 function loadEventListeners(){
   // Trigger when 'Agregar Carrito' button is pushed.
   coursesList.addEventListener('click', buyCourse);
+
+  //Trigger when 'remove item from card -> X' is pressed.
+  shoppingCart.addEventListener('click', removeCourse);
 }
 
 // Functions.
+
 function buyCourse(e){
   e.preventDefault();
   // Delagation to buy button.
@@ -35,5 +39,22 @@ function readDataCourse(course){
 
 // Insert object into the html table (Shpping Cart).
 function insertShoppingCart(course){
-  
+  const row = document.createElement('tr');
+  row.innerHTML = `
+    <td><img src="${course.imagen}" width="100"></td>
+    <td>${course.titulo}</td>
+    <td>${course.precio}</td>
+    <td>
+      <a href="#" class="borrar-curso" data-id="${course.id}">
+      X</a>
+    </td>
+  `;
+  listaCursos.appendChild(row);
+}
+
+function removeCourse(e){
+  e.preventDefault();
+  if(e.target.classList.contains('borrar-curso')){
+    e.target.parentElement.parentElement.remove();
+  }
 }
