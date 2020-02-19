@@ -1,6 +1,7 @@
 const shoppingCart = document.getElementById('carrito');
 const coursesList = document.getElementById('lista-cursos');
 const listaCursos = document.querySelector('#lista-carrito tbody');
+const dropOffShoppingCartBtn = document.getElementById('vaciar-carrito');
 
 // Run.
 loadEventListeners();
@@ -10,8 +11,11 @@ function loadEventListeners(){
   // Trigger when 'Agregar Carrito' button is pushed.
   coursesList.addEventListener('click', buyCourse);
 
-  //Trigger when 'remove item from card -> X' is pressed.
+  // Trigger when 'remove item from card -> X' is pressed.
   shoppingCart.addEventListener('click', removeCourse);
+
+  // Trigger the 'vaciar-carrito button.
+  dropOffShoppingCartBtn.addEventListener('click', dropOffShoppingCart);
 }
 
 // Functions.
@@ -57,4 +61,12 @@ function removeCourse(e){
   if(e.target.classList.contains('borrar-curso')){
     e.target.parentElement.parentElement.remove();
   }
+}
+
+// Drop off all courses of the shopping cart.
+function dropOffShoppingCart(){
+  while(listaCursos.firstChild){
+    listaCursos.removeChild(listaCursos.firstChild);
+  }
+  return false;
 }
